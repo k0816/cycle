@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="true" />
+
+	<package name="cycle.action" extends="struts-default">
+
+		<action name="LoginAction" class="cycle.action.LoginAction"
+			method="execute">
+			<result name="success">home.jsp</result>
+			<result name="error">error.jsp</result>
+			<result name="admin">adminMenu.jsp</result>
+		</action>
+
+		<action name="UserCreateAction" class="cycle.action.UserCreateAction"
+			method="execute">
+			<result name="success">userCreate.jsp</result>
+		</action>
+
+		<action name="GoHomeAction" class="cycle.action.GoHomeAction"
+			method="execute">
+			<result name="success">home.jsp</result>
+		</action>
+
+		<action name="PartySearchAction" class="cycle.action.PartySearchAction"
+			method="execute">
+			<result name="success">partySearch.jsp</result>
+		</action>
+
+		<action name="PartySearchResultAction" class="cycle.action.PartySearchResultAction"
+			method="execute">
+			<result name="success">partySearchResult.jsp</result>
+			<result name="error">partySearch.jsp</result>
+		</action>
+
+		<action name="MyPageAction" class="cycle.action.MyPageAction"
+			method="execute">
+			<result name="success">myPage.jsp</result>
+		</action>
+
+		<action name="UserCreateConfirmAction" class="cycle.action.UserCreateConfirmAction"
+			method="execute">
+			<result name="success">userCreateConfirm.jsp</result>
+			<result name="error">userCreate.jsp</result>
+		</action>
+
+		<action name="UserCreateCompleteAction" class="cycle.action.UserCreateCompleteAction"
+			method="execute">
+			<result name="success">userCreateComplete.jsp</result>
+		</action>
+
+		<action name="LogoutAction" class="cycle.action.LogoutAction"
+		    method="execute">
+		    <result name="success">home.jsp</result>
+		</action>
+		<action name="PartyDetailAction" class="cycle.action.PartyDetailAction"
+		    method="execute">
+		    <result name="success">partyDetail.jsp</result>
+		</action>
+
+		 <action name="PartyJoinCompleteAction" class="cycle.action.PartyJoinCompleteAction"
+		    method="execute">
+		    <result type="chain" name="success" >PartySearchAction</result>
+		 </action>
+
+		 <action name="PartyJoinHistoryAction" class="cycle.action.PartyJoinHistoryAction"
+             method="execute">
+             <result name="success">partyJoinHistory.jsp</result>
+             </action>
+
+            <action name="NicePartyAction" class="cycle.action.NicePartyAction"
+             method="execute">
+             <result type="chain" name="success">PartySearchAction</result>
+          </action>
+
+          <action name="NicePartyListAction" class="cycle.action.NicePartyListAction"
+             method="execute">
+             <result name="success">nicePartyList.jsp</result>
+          </action>
+
+          <action name="NicePartyDeleteAction" class="cycle.action.NicePartyDeleteAction"
+             method="execute">
+             <result type="chain" name="success">NicePartyListAction</result>
+             <result name="error">nicePartyList.jsp</result>
+          </action>
+
+          <action name="PartyEditAction" class="cycle.action.PartyEditAction"
+             method="execute">
+             <result name="success">partyEdit.jsp</result>
+          </action>
+
+            <action name="PartyEditCompleteAction" class="cycle.action.PartyEditCompleteAction"
+             method="execute">
+               <result type="chain" name="success">AllPartyListAction</result>
+             <result name="error">adminAllPartyList.jsp</result>
+          </action>
+
+          <action name="PartyDeleteAction" class="cycle.action.PartyDeleteAction"
+             method="execute">
+             <result type="chain" name="success">AllPartyListAction</result>
+             <result name="error">adminAllPartyList.jsp</result>
+          </action>
+
+          <action name="UserInfoAction" class="cycle.action.UserInfoAction"
+             method="execute">
+             <result name="success">userInfo.jsp</result>
+          </action>
+
+          <action name="UserInfoEditAction" class="cycle.action.UserInfoEditAction"
+             method="execute">
+             <result name="success">userInfoEdit.jsp</result>
+          </action>
+
+           <action name="UserInfoEditConfirmAction" class="cycle.action.UserInfoEditConfirmAction"
+             method="execute">
+             <result name="success">userInfoEditConfirm.jsp</result>
+           </action>
+
+           <action name="UserInfoEditCompleteAction" class="cycle.action.UserInfoEditCompleteAction"
+             method="execute">
+             <result name="success">userInfo.jsp</result>
+             <result name="error">userInfoEdit.jsp</result>
+           </action>
+
+        <action name="UserInfoDeleteCompleteAction" class="cycle.action.UserInfoDeleteCompleteAction"
+             method="execute">
+             <result name="success">home.jsp</result>
+             <result name="error">userInfo.jsp</result>
+           </action>
+
+           <!--アンケート入力フォーム
+           <action name="UserInfoDeleteAction" class="cycle.action.UserInfoDeleteAction"
+             method="execute">
+             <result name="success">userInfoDelete.jsp</result>
+             <result name="error">userInfo.jsp</result>
+             </action>
+            -->
+              <action name="PartyAddAction" class="cycle.action.PartyAddAction"
+             method="execute">
+             <result name="success">adminMenu.jsp</result>
+             <result name="error">adminMenu.jsp</result>
+             </action>
+
+             <action name="AllPartyListAction" class="cycle.action.AllPartyListAction"
+             method="execute">
+             <result name="success">adminAllPartyList.jsp</result>
+             </action>
+
+		<!--   未実装-->
+
+	</package>
+</struts>
