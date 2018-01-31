@@ -132,15 +132,12 @@ position: absolute;
 <br><br>
 開催地：
 
-<s:iterator value="partyPlaceList">
-<label><input type="checkbox" name="partyPlace" value="ikebukuro" '<s:property value="dto.getPartyPlace">'>池袋</label>
-<label><input type="checkbox" name="partyPlace" value="shinjuku" checked>新宿</label>
-<label><input type="checkbox" name="partyPlace" value="shibuya" checked>渋谷</label>
-<label><input type="checkbox" name="partyPlace" value="shinagawa" checked>品川</label>
-<label><input type="checkbox" name="partyPlace" value="ueno" checked>上野</label>
-<label><input type="checkbox" name="partyPlace" value="roppongi" checked>六本木</label>　
-<label><input name="selectAll" onclick="allChangePlace(this.checked);" type="checkbox"  />全解除／全選択</label>
+<s:iterator value="partyPlaceDTOList">
+<label><s:property value="checked"/><s:property value="partyPlace"/></label>
+<label><s:checkbox name="checkList" value="checked" fieldValue="%{id}" /><s:property value="partyPlace"/></label>
+<s:hidden name="partyPlace" value="%{partyPlace}"/>
 </s:iterator>
+<label><input name="selectAll" onclick="allChangePlace(this.checked);" type="checkbox"  />全解除／全選択</label>
 
 <br><br>
 年齢層：<select name="ageMinimum">

@@ -1,7 +1,9 @@
 package cycle.action;
 
 import java.util.ArrayList;
+import java.util.Collection;
 //import java.util.List;
+import java.util.List;
 
 import cycle.dao.PartySearchResultDAO;
 import cycle.dto.PartyPlaceDTO;
@@ -31,8 +33,9 @@ public class PartySearchResultAction extends ActionSupport {
 	public String sort;
 	public String message;
 	private String errorMessage;
+	private Collection<String> checkList;
 
-//	private List<PartyPlaceDTO> partyPlaceDTOList = new ArrayList<PartyPlaceDTO>();
+	private List<PartyPlaceDTO> partyPlaceDTOList = new ArrayList<PartyPlaceDTO>();
 
 	public String execute() {
 
@@ -86,34 +89,52 @@ public class PartySearchResultAction extends ActionSupport {
 			return ERROR;
 		}
 
-		String[] partyPlaceList = partyPlace.split(", ", 0);
-		for(int i=0; i<partyPlaceList.length;i++){
-			System.out.println(partyPlaceList[i].toString());
 
+		String place="池袋,新宿,渋谷,品川,上野";
+		String[] placeList=place.split(",",0);
+
+
+		for(int i=0; i < placeList.length; i++){
 			PartyPlaceDTO dto = new PartyPlaceDTO();
-			switch(partyPlaceList[i].toString()){
-			case "ikebukuro":
-				dto.setPartyPlace("池袋");
-				break;
-			case "shinjuku":
-				dto.setPartyPlace("新宿");
-				break;
-			case "shibuya":
-				dto.setPartyPlace("渋谷");
-				break;
-			case "shinagawa":
-				dto.setPartyPlace("品川");
-				break;
-			case "ueno":
-				dto.setPartyPlace("上野");
-				break;
-			case "roppongi":
-				dto.setPartyPlace("六本木");
-				break;
-			default:
-
-			}
+			dto.setPartyPlace(placeList[i]);
+			dto.setChecked(false);
+			partyPlaceDTOList.add(dto);
 		}
+
+		for(String check : checkList){
+			int id = Integer.parseInt(check);
+			partyPlaceDTOList.get(id - 1).setChecked(true);
+		}
+
+//		String[] partyPlaceList = partyPlace.split(", ", 0);
+//		for(int i=0; i<partyPlaceList.length;i++){
+//			System.out.println(partyPlaceList[i].toString());
+//
+//			PartyPlaceDTO dto = new PartyPlaceDTO();
+//			switch(partyPlaceList[i].toString()){
+//			case "ikebukuro":
+//				dto.setPartyPlace("池袋");
+//				break;
+//			case "shinjuku":
+//				dto.setPartyPlace("新宿");
+//				break;
+//			case "shibuya":
+//				dto.setPartyPlace("渋谷");
+//				break;
+//			case "shinagawa":
+//				dto.setPartyPlace("品川");
+//				break;
+//			case "ueno":
+//				dto.setPartyPlace("上野");
+//				break;
+//			case "roppongi":
+//				dto.setPartyPlace("六本木");
+//				break;
+//			default:
+//
+//			}
+//			party
+//		}
 
 		String[] partyWeekList = partyWeek.split(", ", 0);
 		for(int n=0; n<partyWeekList.length;n++){
@@ -302,6 +323,23 @@ public class PartySearchResultAction extends ActionSupport {
 	public void setSort(String sort) {
 		this.sort = sort;
 	}
+
+	public String getCheckList() {
+		return checkList;
+	}
+
+	public void setCheckList(String checkList) {
+		this.checkList = checkList;
+	}
+
+	public List<PartyPlaceDTO> getPartyPlaceDTOList() {
+		return partyPlaceDTOList;
+	}
+
+	public void setPartyPlaceDTOList(List<PartyPlaceDTO> partyPlaceDTOList) {
+		this.partyPlaceDTOList = partyPlaceDTOList;
+	}
+
 
 
 }
