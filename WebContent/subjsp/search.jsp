@@ -279,14 +279,14 @@ a.allN {
 		</div>
 		<div id="place">
 			<label><input type="checkbox" name="partyPlace"
-				value="ikebukuro" checked>池袋</label> <label><input
-				type="checkbox" name="partyPlace" value="shinjuku" checked>新宿</label>
+				value="池袋" checked>池袋</label> <label><input
+				type="checkbox" name="partyPlace" value="新宿" checked>新宿</label>
 			<label><input type="checkbox" name="partyPlace"
-				value="shibuya" checked>渋谷</label> <label><input
-				type="checkbox" name="partyPlace" value="shinagawa" checked>品川</label>
-			<label><input type="checkbox" name="partyPlace" value="ueno"
+				value="渋谷" checked>渋谷</label> <label><input
+				type="checkbox" name="partyPlace" value="品川" checked>品川</label>
+			<label><input type="checkbox" name="partyPlace" value="上野"
 				checked>上野</label> <label><input type="checkbox"
-				name="partyPlace" value="roppongi" checked>六本木</label> <label><input
+				name="partyPlace" value="六本木" checked>六本木</label> <label><input
 				name="selectAll" onclick="allChangePlace(this.checked);"
 				type="checkbox" />全解除／全選択</label>
 		</div>
