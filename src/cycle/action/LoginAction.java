@@ -41,6 +41,8 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		session.put("userName", loginDTO.getUserName());
 		session.put("gender", loginDTO.getGender());
 		session.put("birthday", loginDTO.getBirthday());
+		session.put("age", loginDTO.getBirthday());
+
 
 		// ログイン情報を比較
 		if(((LoginDTO) session.get("loginUser")).getLoginFlg()) {

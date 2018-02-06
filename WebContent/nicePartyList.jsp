@@ -32,7 +32,7 @@
 
 	<h1>いいね！リスト</h1>
 		<s:if test="nicePartyListList==null || nicePartyListList.isEmpty()">
-	<h2>登録しているパーティーはございません。</h2>
+	<h2>いいね！リストには何も入っておりません。</h2>
 	</s:if>
 
 	<s:iterator value="nicePartyListList">
@@ -61,9 +61,6 @@
 				追加日：
 				<s:date name="insertDate" format="yyyy年MM月dd日" />
 			</div>
-			<a href='<s:url action="PartyDetailAction"><s:param name="partyId" value="%{partyId}"/></s:url>'>
-            <input type="submit" value="詳しく見る" /></a>
-			<br>
 			<a href='<s:url action="NicePartyDeleteAction"><s:param name="partyId" value="%{partyId}"/></s:url>'>
             <input type="submit" value="削除する" /></a>
 		</div>

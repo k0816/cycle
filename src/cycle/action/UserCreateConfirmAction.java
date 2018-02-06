@@ -3,7 +3,6 @@ package cycle.action;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
-
 import com.opensymphony.xwork2.ActionSupport;
 
 public class UserCreateConfirmAction extends ActionSupport implements SessionAware {
@@ -16,8 +15,6 @@ public class UserCreateConfirmAction extends ActionSupport implements SessionAwa
 
 	private String gender;
 
-	private String birthday;
-
 	String year;
 	String month;
 	String day;
@@ -27,32 +24,14 @@ public class UserCreateConfirmAction extends ActionSupport implements SessionAwa
 	private String errorMassage;
 
 
-	public String execute() {
+	public String execute()  {
 
 		String result = SUCCESS;
 
 
-//		StringBuilder buf = new StringBuilder();
-//		buf.append("year");
-//		buf.append("month");
-//		buf.append("day");
-//		String birthday = buf.toString();
 
-
-		String birthday = year+month+day;
-
-
-		System.out.println("-------");
-		System.out.println(birthday);
-
-		System.out.println("-------");;
-
-		if (!(loginAddress.equals("")) && !(loginPassword.equals("")) && !(userName.equals("")) && !(birthday.equals(""))) {
-//			session.put("loginAddress", loginAddress);
-//			session.put("loginPassword", loginPassword);
-//			session.put("userName", userName);
-//			session.put("gender", gender);
-//			session.put("birthday", birthday);
+		if (!(loginAddress.equals("")) && !(loginPassword.equals("")) && !(userName.equals("")) &&
+				!(year.equals("")) && !(month.equals("")) && !(day.equals("")) ) {
 
 			return result;
 
@@ -96,14 +75,6 @@ public class UserCreateConfirmAction extends ActionSupport implements SessionAwa
 
 	public void setGender(String gender) {
 		this.gender = gender;
-	}
-
-	public String getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(String birthday) {
-		this.birthday = birthday;
 	}
 
 	@Override

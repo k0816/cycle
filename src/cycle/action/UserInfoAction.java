@@ -21,6 +21,7 @@ public class  UserInfoAction extends ActionSupport implements SessionAware {
 	private Map<String,Object> session;
 	public String execute()  {
 
+		String result = ERROR;
 
 		LoginDTO loginUser = new LoginDTO();
 		loginUser=(LoginDTO)session.get("loginUser");
@@ -38,8 +39,13 @@ public class  UserInfoAction extends ActionSupport implements SessionAware {
 		System.out.println(userName);
 		System.out.println(gender);
 		System.out.println(birthday);
-		return SUCCESS;
+		result =SUCCESS;
+
+		return result;
+
 	}
+
+
 
 	public String getLoginAddress() {
 		return loginAddress;

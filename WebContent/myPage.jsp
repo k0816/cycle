@@ -13,19 +13,30 @@
 <meta name="keywords" content="" />
 <title>マイページ</title>
 <style type="text/css">
-
-
-
 </style>
 <script type="text/javascript">
-
 
 </script>
 </head>
 <body>
-<jsp:include page="subjsp/include.jsp" flush="true" />
+	<jsp:include page="subjsp/include.jsp" flush="true" />
 
 
+	<div id="link">
+		<a href="NicePartyListAction">お気に入りリスト</A>
+	</div>
+
+	<div id="link">
+		<a href="PartyJoinHistoryAction">参加履歴</A>
+	</div>
+
+	<div id="link">
+		<a href="UserInfoAction">登録情報確認</A>
+	</div>
+
+	<s:if test="#session.loginUser !=null">
+		<a href="LogoutAction">ログアウト</a>
+	</s:if>
 
 
 </body>

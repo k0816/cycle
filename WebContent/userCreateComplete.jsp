@@ -15,60 +15,31 @@
 	<meta charset="utf-8">
 	<title>UserCreateComplete画面</title>
 	<style type="text/css">
-		/* ========TAG LAYOUT======== */
-		body {
-		   margin:0;
-		   padding:0;
-		   line-height:1.6;
-		   letter-spacing:1px;
-		   font-family:Verdana, Helvetica, sans-serif;
-		   font-size:12px;
-		   color:#333;
-		   background:#fff;
-		}
 
-		table {
-			text-align:center;
-			margin:0 auto;
-		}
 
-		/* ========ID LAYOUT======== */
-		#top {
-		   width:780px;
-		   margin:30px auto;
-		   border:1px solid #333;
-		}
+	.title{
+    font-size: 200%;
+    color: orange;
+    text-align : center ;
+    }
 
-		#main {
-		   width: 100%;
-		   height: 500px;
-		   text-align: center;
-		}
+    .com{
+      font-size: 200%;
+    text-align : center ;
+    }
+    }
 
-		#footer {
-			width: 100%;
-			height: 80px;
-			background-color: black;
-			clear:both;
-		}
+
 	</style>
 </head>
 <body>
 	<jsp:include page="subjsp/include.jsp" flush="true" />
 
-	<div id="main">
-		<div id="top">
-			<p>会員登録完了</p>
-		</div>
-		<div><br>
-			<h3>ユーザーの登録が完了致しました。</h3>
+	<div class="title">会員登録完了</div>
+	<br>
+	<div class="com">ユーザーの登録が完了致しました。</div>
 
-		</div>
-	</div>
-	<div id="footer">
-	 	<div id="pr">
-		</div>
-	</div>
+
 </body>
 </html>
 

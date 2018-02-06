@@ -75,9 +75,7 @@ position: absolute;
 			<div class="image">
 			<s:property value="partyDetail" />
 			</div>
-			 <a href='<s:url action="PartyDetailAction"><s:param name="partyId" value="%{partyId}"/></s:url>'>
-            <input type="submit" value="詳しく見る" />
-            </a>　　　
+			 　　　
              <a href='<s:url action="PartyEditAction">
              <s:param name="partyId" value="%{partyId}"/>
              <s:param name="partyName" value="%{partyName}"/>

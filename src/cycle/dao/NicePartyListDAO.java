@@ -16,7 +16,6 @@ public class NicePartyListDAO {
 	ArrayList<PartySearchDTO> nicePartyListList = new ArrayList<PartySearchDTO>();
 	  Connection con = db.getConnection();
 
-	  /* MYSQLの商品履歴に商品情報を加えている(紐づけている) */
 	  String sql = "select pi.party_id,pi.party_name,pi.party_date,pi.male_price,pi.female_price,pi.party_place,pi.image,"
 	  		+ "npl.insert_date from nice_party_list as npl left join party_info as pi on npl.party_id=pi.party_id "
 			 + "where user_id = ? ";

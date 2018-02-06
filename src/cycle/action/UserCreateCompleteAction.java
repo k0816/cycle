@@ -3,12 +3,10 @@ package cycle.action;
 import java.sql.SQLException;
 import java.util.Map;
 
-import org.apache.struts2.interceptor.SessionAware;
-
 import cycle.dao.UserCreateCompleteDAO;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class UserCreateCompleteAction extends ActionSupport implements SessionAware {
+public class UserCreateCompleteAction extends ActionSupport {
 
 	private String loginAddress;
 
@@ -18,7 +16,14 @@ public class UserCreateCompleteAction extends ActionSupport implements SessionAw
 
 	private String gender;
 
-	private String birthday;
+	private String year;
+
+	private String month;
+
+	private String day;
+
+	private String message;
+	private String errorMessage;
 
 	public Map<String, Object> session;
 
@@ -26,14 +31,19 @@ public class UserCreateCompleteAction extends ActionSupport implements SessionAw
 
 	public String execute() throws SQLException {
 
-		userCreateCompleteDAO.createUser(
-				session.get("loginAddress").toString(),
-				session.get("loginPassword").toString(),
-				session.get("userName").toString(),
-				session.get("gender").toString(),
-				session.get("birthday").toString());
+		String result = ERROR;
 
-		String result = SUCCESS;
+		int count = userCreateCompleteDAO.createUser(loginAddress,loginPassword,userName,gender,year,month,day);
+
+		if(count > 0) {
+			message="会員登録が完了いたしました。";
+			result = SUCCESS;
+
+
+		}else{
+			errorMessage="削除に失敗いたしました。";
+			result= ERROR;
+		}
 
 		return result;
 	}
@@ -70,15 +80,44 @@ public class UserCreateCompleteAction extends ActionSupport implements SessionAw
 	    this.gender = gender;
 	}
 
-	public String getBirthday() {
-	    return birthday;
+	public String getYear() {
+		return year;
 	}
 
-	public void setBirthday(String birthday) {
-	    this.birthday = birthday;
+	public void setYear(String year) {
+		this.year = year;
 	}
 
-	public void setSession(Map<String,Object> session) {
-	    this.session = session;
+	public String getMonth() {
+		return month;
 	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
+	public String getDay() {
+		return day;
+	}
+
+	public void setDay(String day) {
+		this.day = day;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+
 }

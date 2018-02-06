@@ -17,7 +17,7 @@ public class PartySearchResultDAO {
 
 	public ArrayList<PartySearchDTO> search(String partyDate, String date2, String partyCapacity, String capa2,
 			String malePrice, String malePrice2, String femalePrice, String femalePrice2,
-			String ageMinimum, String ageMaximum, String[] partyPlaceList, String[] partyWeekList , String sort) {
+			String ageMinimum, String ageMaximum, String[] partyPlaceList, String[] partyWeekList, String sort) {
 		DBConnector db = new DBConnector();
 		Connection con = db.getConnection();
 
@@ -43,21 +43,23 @@ public class PartySearchResultDAO {
 				sql+= " OR party_week=" + partyWeekList[n].toString()+ " ";
 			}
 		}
-//		sql += " )) IS NOT FALSE ORDER BY party_date ASC ";
 
              /* 並べ替え(日付順、値段順、人数順) */
-	    if(sort.equals("date")){
-	    	sql += " )) IS NOT FALSE ORDER BY party_date ASC ";
+	    if(sort.equals("1")){
+	    	sql += " )) IS NOT FALSE ORDER BY party_date ASC " ;
 			}
-	    if(sort.equals("male")){
-	    	sql += " )) IS NOT FALSE ORDER BY male_price ASC ";
-	        }
-	    if(sort.equals("female")){
-	    	sql += " )) IS NOT FALSE ORDER BY female_price ASC ";
+
+	    if(sort.equals("2")){
+	    	sql += " )) IS NOT FALSE ORDER BY party_date DESC " ;
+			}
+
+	    if(sort.equals("3")){
+	    	sql += " )) IS NOT FALSE ORDER BY party_capacity ASC " ;
 	    }
-	    if(sort.equals("capa")){
-	    	sql += " )) IS NOT FALSE ORDER BY party_capacity ASC ";
+	    if(sort.equals("4")){
+	    	sql += " )) IS NOT FALSE ORDER BY party_capacity DESC " ;
 	    }
+
 
 	    try{
 	    	PreparedStatement ps = con.prepareStatement(sql);
@@ -128,6 +130,61 @@ public class PartySearchResultDAO {
 		return listDTO;
 
 	}
+
+	/* 検索数 */
+
+	public int count(String partyDate, String date2, String partyCapacity, String capa2,
+			String malePrice, String malePrice2, String femalePrice, String femalePrice2,
+			String ageMinimum, String ageMaximum, String[] partyPlaceList, String[] partyWeekList )
+					throws SQLException{
+
+		int partyCount = 0;
+
+		DBConnector db = new DBConnector();
+		Connection con = db.getConnection();
+
+		String sql = "SELECT COUNT(*) FROM party_info WHERE ((party_date BETWEEN ? AND ? ) "
+				+ " AND (party_capacity BETWEEN ? AND ?) "
+				+ " AND (male_price BETWEEN " + malePrice + " AND " + malePrice2 + ") "
+				+ " AND (female_price BETWEEN " + femalePrice + " AND " + femalePrice2 + ") "
+			    + " AND (age_minimum >= "+ ageMinimum +" ) "
+			    + " AND (age_maximum <= " + ageMaximum + " ) " ;
+
+		for(int i=0; i < partyPlaceList.length;i++){
+			if(i==0){
+				sql+= "AND (party_place LIKE '%" + partyPlaceList[i].toString() + "%' ";
+			}else if(i>0){
+				sql+= " OR party_place LIKE '%" + partyPlaceList[i].toString() + "%' ";
+			}
+		}
+		for(int n=0; n < partyWeekList.length;n++){
+			if(n==0){
+				sql+= ") AND (party_week=" + partyWeekList[n].toString()+ " ";
+			}else if(n>0){
+				sql+= " OR party_week=" + partyWeekList[n].toString()+ " ";
+			}
+		}
+		sql += " )) IS NOT FALSE ";
+
+
+			  try{
+			    	PreparedStatement ps = con.prepareStatement(sql);
+			    	ps.setString(1, partyDate);
+			    	ps.setString(2, date2);
+			    	ps.setString(3, partyCapacity);
+			    	ps.setString(4, capa2);
+					ResultSet rs = ps.executeQuery();
+					while(rs.next()){
+					partyCount = rs.getInt(1);
+					}
+			  }catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+							con.close();
+						}
+		return partyCount;
+	}
+
 
 	public ArrayList<PartySearchDTO> getListDTO() {
 		return listDTO;

@@ -26,9 +26,9 @@ function MoveCheck() {
 <s:property value="partyId" />
 
 <br>
-<a href='<s:url action="PartyJoinCompleteAction"><s:param name="userId" value="%{userId}"/>
+<a href='<s:url action="PartyJoinCompleteAction">
+<s:param name="userId" value="%{userId}"/>
          <s:param name="partyId" value="%{partyId}"/></s:url>'>
-         <!-- 購入済みの場合、参加済みです。と表示したい。-->
            <s:if test="#session.loginUser != null">
             <input type="submit" value="参加する" />
            </s:if>

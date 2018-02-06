@@ -37,5 +37,5 @@ insert_date datetime,
 update_date datetime
 );
 
-INSERT INTO user_info(login_address, login_pass, user_name, gender, birthday)VALUES
-("koni", "koni", "konishi", 1, 19910816);
+INSERT INTO user_info(login_address, login_pass, user_name, gender, birthday, age)VALUES
+("koni", "koni", "konishi", 1, 19910816, TIMESTAMPDIFF(YEAR, birthday, CURDATE()) );

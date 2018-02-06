@@ -24,25 +24,79 @@
     margin: 1em 0;
     padding: 1em;
     position:relative;
-
-
+    display: inline-block;
 
 	}
 
-#form{
 
+.double{
+    height : 300px ;
+    width:1000px;
+    margin: 0 auto;
+    display: block;
+    box-sizing: border-box;
 
 }
 
-.image{
-position: absolute;
-	left: 500px;
+.left{
+  background:#D3DEF1;
+    width:450px;
+    height: 300px;
+    padding : 3px 3px 3px 3px ;
+    float: left;
+    display: inline-block;
+        border: 4px solid #82636b;
+
 }
+.searchBox{
+    width : 450px ;
+    height: 300px;
+    padding : 3px 3px 3px 10px ;
+    margin: 0 auto;
+    background:#D3DEF1;
+    float:right;
+    display: inline-block;
+    border: 4px solid #82636b;
+
+}
+.result{
+    font-size: 200%;
+    color: orange;
+        text-align: center;
+
+}
+
+.imageBox{
+ margin-left: auto;
+ height : 100% ;
+ padding : 0;
+ display: inline-block;
+}
+
+.partyInfo{
+ width :350px;
+ background:#D3DEF1;
+ padding : 3px 3px 3px 3px ;
+    float: left;
+    display: inline-block;
+
+}
+
 
 #main{
 
     width:1000px;
     margin:0 auto;
+
+}
+
+.searchResult{
+    width:800px;
+    background:white;
+    padding : 0px 20px 0px 20px ;
+    margin: 0 auto;
+    display: block;
+    box-sizing: border-box;
 
 }
 
@@ -86,6 +140,7 @@ position: absolute;
 /*---カレンダー日付の初期値設定---*/
 
 
+
 </script>
 
 
@@ -98,29 +153,86 @@ position: absolute;
 	<jsp:include page="subjsp/include.jsp" flush="true" />
 
 
-<div id="main">
-
-
-    <s:date name="date.getDate()" format="yyyy年MM月dd日" />
-
-
 	<s:if test="errorMessage!=null">
 	<s:property value="errorMessage"/>
 </s:if>
-                    <!-- 詳細検索 -->
-<s:form id="form" name="form" action="PartySearchResultAction">
+
+<div class="double">
+
+<div class="left">
+<s:form  class="form" name="form" action="PartySearchResultAction">
+
+-検索条件-
+<br>
+開催日：
+<s:if test="partyDate==null">指定なし</s:if>
+<s:if test="partyDate!=null"><s:property value="partyDate" />～</s:if>
+<s:if test="partyDate != null && Date != null">,</s:if>
+<s:if test="date2!=null">～<s:property value="date2"/></s:if><br>
+曜日：<s:property value="getWeekName()" />
+<br>
+開催地：<s:property value="partyPlace" />
+<br>
+年齢層：
+<s:if test="ageMinimum == 0 && ageMaximum == 99 ">指定なし</s:if>
+<s:if test="ageMinimum >1"><s:property value="ageMinimum" />歳～</s:if>
+<s:if test="ageMinimum > 1 && ageMaximum < 99 ">,</s:if>
+<s:if test="ageMaximum < 99">～<s:property value="ageMaximum" />歳</s:if><br>
+参加人数：
+<s:if test="partyCapacity == 0 && capa2 > 101 ">指定なし</s:if>
+<s:if test="partyCapacity > 1"><s:property value="partyCapacity" />人～</s:if>
+<s:if test="partyCapacity > 1 && capa2 < 101 ">,</s:if>
+<s:if test="capa2 < 101">～<s:property value="capa2" />人</s:if><br>
+参加料(男性)：
+<s:if test="malePrice == 0 && malePrice2 > 9001 ">指定なし</s:if>
+<s:if test="malePrice > 1 "><s:property value="malePrice"/>円～</s:if>
+<s:if test="malePrice > 1 && malePrice2 < 9001 ">,</s:if>
+<s:if test="malePrice2 < 9001 ">～<s:property value="malePrice2"/>円</s:if><br>
+参加料(女性)：
+<s:if test="femalePrice == 0 && femalePrice2 > 9001 ">指定なし</s:if>
+<s:if test="femalePrice > 1 "> <s:property value="femalePrice"/>円～</s:if>
+<s:if test="femalePrice > 1 && femalePrice2 < 9001 ">,</s:if>
+<s:if test="femalePrice2 < 9001 ">～<s:property value="femalePrice2"/>円</s:if>
+<br><br>
+検索順：
+		<s:if test="sort==1">開催日時が近い順</s:if>
+		<s:if test="sort==2">開催日時が遠い順</s:if>
+		<s:if test="sort==3">参加人数が少ない順</s:if>
+		<s:if test="sort==4">参加人数が多い順</s:if>
+<br><br>
+<SELECT name="sort">
+<option value="1">開催日時が近い順</option>
+<option value="2">開催日時が遠い順</option>
+<option value="3">参加人数が少ない順</option>
+<option value="4">参加人数が多い順</option>
+</SELECT>
+<button type="submit">並び替え</button>
+
+			<s:hidden name="partyDate" value="%{partyDate}"/>
+			<s:hidden name="date2" value="%{date2}"/>
+			<s:hidden name="partyWeek" value="%{partyWeek}"/>
+			<s:hidden name="partyPlace" value="%{partyPlace}"/>
+			<s:hidden name="ageMinimum" value="%{ageMinimum}"/>
+			<s:hidden name="ageMaximum" value="%{ageMaximum}"/>
+			<s:hidden name="partyCapacity" value="%{partyCapacity}"/>
+			<s:hidden name="capa2" value="%{capa2}"/>
+			<s:hidden name="malePrice" value="%{malePrice}"/>
+			<s:hidden name="malePrice2" value="%{malePrice2}"/>
+			<s:hidden name="femalePrice" value="%{femalePrice}"/>
+			<s:hidden name="femalePrice2" value="%{femalePrice2}"/>
+</s:form>
+
+</div>
+
+<div class="searchBox">
+
+<s:form  action="PartySearchResultAction">
    開催日：<input type="text" id="date1" name="partyDate" value='<s:property value="partyDate" />' >～
    <input type="text" id="date2" name="date2" value='<s:property value="date2" />' /><br>
 
+
+<!-- チェックボックスのみ値引継ぎ不可 -->
   曜日：
-<!--  <label><input type="checkbox" name="partyWeek" value="1" <s:if test="partyWeek==1">checked</s:if>>日曜</label>
-<label><input type="checkbox" name="partyWeek" value="2" <s:if test="partyWeek==2">checked</s:if>>月曜</label>
-<label><input type="checkbox" name="partyWeek" value="3" <s:if test="partyWeek==3">checked</s:if>>火曜</label>
-<label><input type="checkbox" name="partyWeek" value="4" <s:if test="partyWeek==4">checked</s:if>>水曜</label>
-<label><input type="checkbox" name="partyWeek" value="5" <s:if test="partyWeek==5">checked</s:if>>木曜</label>
-<label><input type="checkbox" name="partyWeek" value="6" <s:if test="partyWeek==6">checked</s:if>>金曜</label>
-<label><input type="checkbox" name="partyWeek" value="7" <s:if test="partyWeek==7">checked</s:if>>土曜</label>　
-<label><input name="selectAll" onclick="allChangeWeek(this.checked);" type="checkbox"  />全解除／全選択</label>  -->
 <label><input type="checkbox" name="partyWeek" value="1" checked>日曜</label>
 <label><input type="checkbox" name="partyWeek" value="2" checked>月曜</label>
 <label><input type="checkbox" name="partyWeek" value="3" checked>火曜</label>
@@ -128,16 +240,21 @@ position: absolute;
 <label><input type="checkbox" name="partyWeek" value="5" checked>木曜</label>
 <label><input type="checkbox" name="partyWeek" value="6" checked>金曜</label>
 <label><input type="checkbox" name="partyWeek" value="7" checked>土曜</label>　
-
 <br><br>
 開催地：
 
-<s:iterator value="partyPlaceDTOList">
-<label><s:property value="checked"/><s:property value="partyPlace"/></label>
-<label><s:checkbox name="checkList" value="checked" fieldValue="%{id}" /><s:property value="partyPlace"/></label>
-<s:hidden name="partyPlace" value="%{partyPlace}"/>
-</s:iterator>
-<label><input name="selectAll" onclick="allChangePlace(this.checked);" type="checkbox"  />全解除／全選択</label>
+<label><input type="checkbox" name="partyPlace"
+				value="ikebukuro" checked>池袋</label> <label><input
+				type="checkbox" name="partyPlace" value="shinjuku" checked>新宿</label>
+			<label><input type="checkbox" name="partyPlace"
+				value="shibuya" checked>渋谷</label> <label><input
+				type="checkbox" name="partyPlace" value="shinagawa" checked>品川</label>
+			<label><input type="checkbox" name="partyPlace" value="ueno"
+				checked>上野</label> <label><input type="checkbox"
+				name="partyPlace" value="roppongi" checked>六本木</label>
+			<!--  <label><input name="selectAll" onclick="allChangePlace(this.checked);"
+				type="checkbox" />全解除／全選択</label>  -->
+
 
 <br><br>
 年齢層：<select name="ageMinimum">
@@ -151,6 +268,7 @@ position: absolute;
   <select name="ageMaximum">
     <option value="99" <s:if test="ageMaximum==99">selected</s:if> >指定しない</option>
     <option value="25" <s:if test="ageMaximum==25">selected</s:if> >25</option>
+
     <option value="30" <s:if test="ageMaximum==30">selected</s:if> >30</option>
     <option value="35" <s:if test="ageMaximum==35">selected</s:if> >35</option>
     <option value="40" <s:if test="ageMaximum==40">selected</s:if> >40</option>
@@ -210,68 +328,34 @@ position: absolute;
     <option value="9000" <s:if test="femalePrice2==9000">selected</s:if> >9000</option>
   </select>　円<br><br>
 
-<button type="submit" name="sort" value="date">検索</button>
+<button type="submit" name="sort" value="1">検索</button>
 </s:form>
-
-
-
-<s:form id="form" name="form" action="PartySearchResultAction">
-
--検索条件-<br>
-開催日：
-<s:if test="partyDate!=null"><s:property value="partyDate" />～</s:if>
-<s:if test="partyDate != null && Date != null">,</s:if>
-<s:if test="Date2!=null">～<s:property value="Date2"/></s:if><br>
-開催地：<s:property value="partyPlace" /><br>
-曜日：<s:property value="partyWeek" /><br>
-年齢層：<s:if test="ageMinimum >1"><s:property value="ageMinimum" />歳～</s:if>
-<s:if test="ageMinimum > 1 && ageMaximum < 99 ">,</s:if>
-<s:if test="ageMaximum < 99">～<s:property value="ageMaximum" />歳</s:if><br>
-参加人数：<s:if test="partyCapacity > 1"><s:property value="partyCapacity" />人～</s:if>
-<s:if test="partyCapacity > 1 && capa2 < 101 ">,</s:if>
-<s:if test="capa2 < 101">～<s:property value="capa2" />人</s:if><br>
-参加料(男性)：<s:if test="malePrice > 1 "><s:property value="malePrice"/>円～</s:if>
-<s:if test="malePrice > 1 && malePrice2 < 9001 ">,</s:if>
-<s:if test="malePrice2 < 9001 ">～<s:property value="malePrice2"/>円</s:if><br>
-参加料(女性)：<s:if test="femalePrice > 1 "> <s:property value="femalePrice"/>円～</s:if>
-<s:if test="femalePrice > 1 && femalePrice2 < 9001 ">,</s:if>
-<s:if test="femalePrice2 < 9001 ">～<s:property value="femalePrice2"/>円</s:if>
+</div>
+</div>
 <br>
-<button type="submit" name="sort" value="capa">参加人数が少ない順</button>
-
-</s:form>
-
-
-		<h2 class="title">検索結果</h2>
-		<s:if test="sort==date">日付順表示</s:if>
-		<s:if test="ListDTO==null || ListDTO.isEmpty()">
+<s:if test="ListDTO==null || ListDTO.isEmpty()">
 		<h2>条件に合うパーティーがありません。</h2>
 		</s:if>
 
+
 		<!--商品検索結果-->
 
-		<div class="box"></div>
-		<s:iterator value="listDTO">
+	<div class="result">検索結果：<s:property value="getPartyCount()"/>件</div><br>
+
+		<div class="searchResult">
+		<s:iterator value="listDTO" status="stt">
+		<div class="countList">
+		<span><s:property value="#stt.count"/></span>
 		<div class="list">
 
-		<div class="image">
-		<img src='<s:property value="image" />' alt="画像" width="250" height="200">
-		</div>
+		<div class="partyInfo">
 		<s:if test ="joinCount==partyCapacity">
 		売り切れ！
-		</s:if>
-		<s:if test="date.getDate() >= partyDate">
-		受付終了！
 		</s:if>
 		<s:if test="message!=null">
 		<h3><s:property value="message"/></h3>
 	    </s:if>
-		<s:property value="partyDate" />　<s:property value="date.getDateDay()" />
 
-
-		    <div class="partyId;">
-		        パーティーID：<s:property value="partyId" />
-		    </div>
 			<div class="partyName">
 				名称：<s:property value="partyName" />
 			</div>
@@ -290,49 +374,35 @@ position: absolute;
 			</div>
 			<div class="partyPrice">
 				参加費　男性：<s:property value="malePrice" />円<br>
-				　　　　女性；<s:property value="femalePrice" />円
+				　　　　女性：<s:property value="femalePrice" />円
 			</div>
 			<div class="partyCapacity">
 				参加人数：<s:property value="partyCapacity" />人
 			</div>
-			<div class="age">
 			参加条件：<s:property value="ageMinimum" />歳 ～ <s:property value="ageMaximum" /> 歳
-			</div>
-
-			<div class="partyDetail">
-			<s:property value="partyDetail" />
-			</div>
-			 <a href='<s:url action="PartyDetailAction"><s:param name="partyId" value="%{partyId}"/></s:url>'>
-            <input type="submit" value="詳しく見る" />
-            </a>
+			<br><br>
             <s:if test="#session.loginUser != null">
-            　　　
-             <a href='<s:url action="NicePartyAction"><s:param name="partyId" value="%{partyId}"/></s:url>'>
-            <input type="submit" value="いいね！" />
-            </a></s:if>
-
-            <s:if test="#session.loginUser != null">
-             <a href='<s:url action="PartyEditAction">
-             <s:param name="partyId" value="%{partyId}"/>
-             <s:param name="partyName" value="%{partyName}"/>
-             <s:param name="partyDate" value="%{partyDate}"/>
-             <s:param name="malePrice" value="%{malePrice}"/>
-             <s:param name="femalePrice" value="%{femalePrice}"/>
-             <s:param name="partyCapacity" value="%{partyCapacity}"/>
-             <s:param name="partyPlace" value="%{partyPlace}"/>
-             <s:param name="ageMinimum" value="%{ageMinimum}"/>
-             <s:param name="ageMaximum" value="%{ageMaximum}"/>
-             <s:param name="partyDetail" value="%{partyDetail}"/>
-             </s:url>'>
-            <input type="submit" value="内容を変更する" />
-            </a>　　　
-              <a href='<s:url action="PartyDeleteAction"><s:param name="partyId" value="%{partyId}"/></s:url>'>
-            <input type="submit" value="削除する" />
-            </a>　
+	        <s:form name="form" action="NicePartyAction">
+            <s:hidden name="partyId" value="%{partyId}"/>
+ 		    <button type="submit" >いいね！</button>
+ 		    </s:form>
+ 		    <s:form name="form" action="PartyJoinCompleteAction">
+ 		    <s:hidden name="userId" value="%{userId}"/>
+ 		    <s:hidden name="partyId" value="%{partyId}"/>
+            <button type="submit" >参加する</button>
+            </s:form>
             </s:if>
+            <s:else>
+            <br>※参加をご希望の方はログインをお願いします。
+            </s:else>
+            </div>
+            <div class="imageBox">
+		<img class="image" src='<s:property value="image" />' alt="画像" height="200" width="300" >
+		</div>
+		</div>
 		</div>
 		</s:iterator>
-	</div>
+		</div>
 
 </body>
 </html>

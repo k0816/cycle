@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html >
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -15,9 +15,8 @@
 #header {
 	width: 100%;
 	height: 50px;
-	/* background-color: white; */
-	background: url("./image/town.png");
-
+	background-color: white;
+	background-image: url("./image/town.png");
 	box-shadow: 2px 2px 4px;
 	position: fixed;
 	z-index:100;
@@ -34,18 +33,6 @@
 	height: 50px;
 }
 
-/*
-
-#search, #create, #mypage :active{
-position:relative;
-top:2px;
-}
-
-#search,#create,#mypage :hover{
-	opacity: 0.6 ;
-}
-
-*/
 
 #loginForm {
 	position: absolute;
@@ -56,21 +43,21 @@ top:2px;
 #add {
 	position: absolute;
 	left: 160px;
-	top: 20px;
+	top: 25px;
 	background-color:#FF9;
 }
 
 #pass {
 	position: absolute;
 	left: 310px;
-	top: 20px;
+	top: 25px;
 	background-color: #FF9;
 }
 
 #loginIcon {
 	position: absolute;
 	left: 460px;
-	top: 19px;
+	top: 25px;
 
 }
 
@@ -81,131 +68,49 @@ top:2px;
 	color:#fd951e;
 }
 
-#mypage{
+#nice{
     position: absolute;
-	left: 420px;
-	top: 10px;
+	left: 425px;
+	top: 17px;
 
 }
 
-#search {
+#join {
 	position: absolute;
 	left: 550px;
-	top: 10px;
+	top: 17px;
 }
+
+#info {
+	position: absolute;
+	left: 675px;
+	top: 17px
+	}
 
 #create {
 	position: absolute;
-	left: 685px;
-	top: 10px
+	left: 550px;
+	top: 17px
 }
 
-#other {
+#logout{
+    color:#b4df9f;
 	position: absolute;
-	right: 0px;
-	z-index:101;
+	left: 820px;
+	top: 30px;
+	 font-size: 75%;
 }
-
 
 body {
 font-family: arial,sans-serif;
 font-weight:600;
-/*	background: url("./image/wood.jpg"); */
 	background: url("./image/001-Basik-Paper.png");
 
 /* background: #f6f8f8; */
 	margin: 0;
 	padding: 0;
 }
-/* ドロップダウンメニューについて */
-#dropmenu {
-	list-style-type: none;
-	width: 100px;
-	height: 40px;
-	margin: 0px auto 0px;
-	padding: 0;
-	background: white;
-	border-bottom: 5px solid #7f7f7f;
-	border-radius: 3px 3px 0 0;;
-}
 
-#dropmenu li {
-	position: relative;
-	width: 100%;
-	float: left;
-	margin: 0;
-	padding: 0;
-	text-align: center;
-}
-
-#dropmenu li a {
-	display: block;
-	margin: 0;
-	padding: 10px;
-	color: black;
-	font-size: 14px;
-	font-weight: bold;
-	line-height: 1;
-	text-decoration: none;
-}
-
-#dropmenu li:hover>a {
-	background: #bfbfbf;;
-	color: #eff7b1;
-}
-
-#dropmenu>li:hover>a {
-	border-radius: 3px 3px 0 0;
-}
-
-#dropmenu li ul {
-	list-style: none;
-	position: absolute;
-	top: 100%;
-	left: 0;
-	margin: 0;
-	padding: 0;
-	border-radius: 0 0 3px 3px;
-}
-
-#dropmenu li ul li {
-	overflow: hidden;
-	width: 100%;
-	height: 0;
-	color: #fff;
-	-moz-transition: .2s;
-	-webkit-transition: .2s;
-	-o-transition: .2s;
-	-ms-transition: .2s;
-	transition: .2s;
-}
-
-#dropmenu li ul li a {
-	padding: 13px 13px;
-	background: #bfbfbf;
-	text-align: center;
-	font-size: 12px;
-	font-weight: normal;
-}
-
-#dropmenu li:hover ul li {
-	overflow: visible;
-	height: 38px;
-	border-top: 1px solid #bfbfbf;
-	border-bottom: 1px solid #616d0b;
-}
-
-#dropmenu li:hover ul li:first-child {
-	border-top: 0;
-}
-
-#dropmenu li:hover ul li:last-child {
-	border-bottom: 0;
-}
-
-#dropmenu li:hover ul li:last-child a {
-	border-radius: 0 0 3px 3px;
-}
 </style>
 </head>
 <body>
@@ -228,40 +133,27 @@ font-weight:600;
 			</s:form>
 			</s:else>
 
-
-			<a href="PartySearchAction"><img id="search" src="image\partyW.png" width="120" height="30"></a>
-
 				<s:if test="#session.loginUser !=null">
-						<a href="MyPageAction"><img id="mypage" src="image\mypageW.png"
+						<a href="NicePartyListAction"><img id="nice" src="image\nice.png"
 							width="120" height="30"></a>
+						<a href="PartyJoinHistoryAction"><img id="join" src="image\join.png"
+							width="120" height="30"></a>
+						<a href="UserInfoAction"><img id="info" src="image\info.png"
+							width="120" height="30"></a>
+						<s:if test="#session.loginUser !=null">
+						<a id="logout" href="LogoutAction">ログアウトはこちら</a></s:if>
+
 				</s:if>
 				<s:else>
-						<a href="UserCreateAction"><img id="create" src="image\createW.png"
-							width="110" height="30"></a>
+						<a href="UserCreateAction"><img id="create" src="image\create.png"
+							width="100" height="30"></a>
 				</s:else>
 			</div>
 		</div>
-
-		<!-- ドロップダウンメニュー -->
-		<div id="other">
-			<ul id="dropmenu">
-				<li><a href="#">その他</a>
-					<ul>
-						<li><a href="ToNewUserAction">お知らせ</a></li>
-						<li><a href="ToNewUserAction">初めての方へ</a></li>
-						<li><a href="#">会社概要</a></li>
-						<li><a href="#">お問い合わせ</a></li>
-						<li><s:if test="#session.loginUser !=null">
-								<a href="LogoutAction">ログアウト</a>
-							</s:if></li>
-					</ul></li>
-			</ul>
-		</div>
 	<br>
 	<br>
 	<br>
 	<br>
-
 
 </body>
 </html>

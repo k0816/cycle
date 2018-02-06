@@ -1,7 +1,8 @@
 package cycle.action;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
+//import java.util.Collection;
 //import java.util.List;
 import java.util.List;
 
@@ -32,39 +33,15 @@ public class PartySearchResultAction extends ActionSupport {
 	public String ageMaximum;
 	public String sort;
 	public String message;
+	public String weekName;
+	public int  partyCount;
+
+
 	private String errorMessage;
-	private Collection<String> checkList;
 
 	private List<PartyPlaceDTO> partyPlaceDTOList = new ArrayList<PartyPlaceDTO>();
 
-	public String execute() {
-
-		if(partyDate.isEmpty()){
-			partyDate=null;
-		}
-
-		if(date2.isEmpty()){
-			date2=null;
-		}
-//      上の二つのDateはifがちゃんと適用されるが、下は必ず適用されてしまう
-//		if(partyCapacity.isEmpty());{
-//			partyCapacity=null;
-//		}
-//		if(capa2.isEmpty());{
-//			capa2=null;
-//		}
-//		if(partyPrice.isEmpty());{
-//			partyPrice=null;
-//		}
-//		if(price2.isEmpty());{
-//			price2=null;
-//		}
-//		if(ageMinimum.isEmpty());{
-//			ageMinimum=null;
-//		}
-//		if(ageMaximum.isEmpty());{
-//			ageMaximum=null;
-//		}
+	public String execute()  throws SQLException {
 
 
 		System.out.println("PartySearchResultAction-------");
@@ -80,9 +57,16 @@ public class PartySearchResultAction extends ActionSupport {
 		System.out.println(ageMinimum);
 		System.out.println(ageMaximum);
 		System.out.println(sort);
-
-
 		System.out.println("-----------------------------");
+
+		if(partyDate.isEmpty()){
+			partyDate=null;
+		}
+
+		if(date2.isEmpty()){
+			date2=null;
+		}
+
 
 		if(partyPlace==null || partyWeek==null  ){
 			errorMessage="チェックボックスの選択がされていません。";
@@ -90,51 +74,10 @@ public class PartySearchResultAction extends ActionSupport {
 		}
 
 
-		String place="池袋,新宿,渋谷,品川,上野";
-		String[] placeList=place.split(",",0);
-
-
-		for(int i=0; i < placeList.length; i++){
-			PartyPlaceDTO dto = new PartyPlaceDTO();
-			dto.setPartyPlace(placeList[i]);
-			dto.setChecked(false);
-			partyPlaceDTOList.add(dto);
+		String[] partyPlaceList = partyPlace.split(", ", 0);
+		for(int i=0; i<partyPlaceList.length;i++){
+			System.out.println(partyPlaceList[i].toString());
 		}
-
-		for(String check : checkList){
-			int id = Integer.parseInt(check);
-			partyPlaceDTOList.get(id - 1).setChecked(true);
-		}
-
-//		String[] partyPlaceList = partyPlace.split(", ", 0);
-//		for(int i=0; i<partyPlaceList.length;i++){
-//			System.out.println(partyPlaceList[i].toString());
-//
-//			PartyPlaceDTO dto = new PartyPlaceDTO();
-//			switch(partyPlaceList[i].toString()){
-//			case "ikebukuro":
-//				dto.setPartyPlace("池袋");
-//				break;
-//			case "shinjuku":
-//				dto.setPartyPlace("新宿");
-//				break;
-//			case "shibuya":
-//				dto.setPartyPlace("渋谷");
-//				break;
-//			case "shinagawa":
-//				dto.setPartyPlace("品川");
-//				break;
-//			case "ueno":
-//				dto.setPartyPlace("上野");
-//				break;
-//			case "roppongi":
-//				dto.setPartyPlace("六本木");
-//				break;
-//			default:
-//
-//			}
-//			party
-//		}
 
 		String[] partyWeekList = partyWeek.split(", ", 0);
 		for(int n=0; n<partyWeekList.length;n++){
@@ -143,42 +86,45 @@ public class PartySearchResultAction extends ActionSupport {
 
 		PartySearchResultDAO dao = new PartySearchResultDAO();
 
-		/* 検索の種類(日付順、値段順、定員数順) */
 		listDTO = dao.search(partyDate,date2,partyCapacity,capa2,
 				malePrice,malePrice2,femalePrice,femalePrice2,
-				ageMinimum,ageMaximum,
-				partyPlaceList,partyWeekList,sort);
+				ageMinimum,ageMaximum,partyPlaceList,partyWeekList,sort);
 
-//		partyWeekの値返還
-
-
-
-//		if(sort.equals("price")){
-//			listDTO = dao.search(partyDate,date2,partyCapacity,capa2,
-//		malePrice,malePrice2,femalePrice,femalePrice2,ageMinimum,ageMaximum,
-//		partyPlaceList,partyWeekList,sort);
-//		}
-////
-//		if(sort.equals("capa")){
-//			listDTO = dao.search3(partyDate,date2,partyCapacity,capa2,
-//		malePrice,malePrice2,femalePrice,femalePrice2,ageMinimum,ageMaximum,
-//		partyPlaceList,partyWeekList,sort);
-//		}
+		setPartyCount(dao.count(partyDate, date2, partyCapacity, capa2,
+				malePrice, malePrice2, femalePrice, femalePrice2,
+				ageMinimum, ageMaximum, partyPlaceList, partyWeekList));
 
 
-//		Calendar calParty = dto.getPartyDate();
+		StringBuilder buf = new StringBuilder();
+		String[] week = partyWeek.split(", ", 0);
+		for(int a=0; a<week.length;a++){
+		switch(week[a]){
+		case "1":
+		    buf.append("日曜,");
+			break;
+		case "2":
+			buf.append("月曜,");
+			break;
+		case "3":
+			buf.append("火曜,");
+			break;
+		case "4":
+			buf.append("水曜,");
+			break;
+		case "5":
+			buf.append("木曜,");
+			break;
+		case "6":
+			buf.append("金曜,");
+			break;
+		case "7":
+			buf.append("土曜,");
+			break;
+		default:
+		}
+		setWeekName(buf.toString());
 
-//		Calendar cal1 = Calendar.getInstance();
-//        cal1.set(2014, 0, 2, 11, 22, 33);
-
-//        int dif = setPartyDate().compareTo(date.getDateDay());
-//
-//        if(dif == 0){
-//        	message="当日です";
-//        	return SUCCESS;
-//        }else{
-//        	return SUCCESS;
-//        }
+		}
 
 		String result = SUCCESS;
 
@@ -194,9 +140,6 @@ public class PartySearchResultAction extends ActionSupport {
 		this.partyDate = partyDate;
 	}
 
-	public String getPartyWeek() {
-		return partyWeek;
-	}
 
 	public String getDate2() {
 		return date2;
@@ -209,6 +152,11 @@ public class PartySearchResultAction extends ActionSupport {
 	public void setPartyWeek(String partyWeek) {
 		this.partyWeek = partyWeek;
 	}
+
+	public String getPartyWeek() {
+		return partyWeek;
+	}
+
 
 	public String getPartyCapacity() {
 		return partyCapacity;
@@ -324,14 +272,6 @@ public class PartySearchResultAction extends ActionSupport {
 		this.sort = sort;
 	}
 
-	public String getCheckList() {
-		return checkList;
-	}
-
-	public void setCheckList(String checkList) {
-		this.checkList = checkList;
-	}
-
 	public List<PartyPlaceDTO> getPartyPlaceDTOList() {
 		return partyPlaceDTOList;
 	}
@@ -340,6 +280,21 @@ public class PartySearchResultAction extends ActionSupport {
 		this.partyPlaceDTOList = partyPlaceDTOList;
 	}
 
+	public int getPartyCount() {
+		return partyCount;
+	}
+
+	public void setPartyCount(int partyCount) {
+		this.partyCount = partyCount;
+	}
+
+	public String getWeekName() {
+		return weekName;
+	}
+
+	public void setWeekName(String weekName) {
+		this.weekName = weekName;
+	}
 
 
 }

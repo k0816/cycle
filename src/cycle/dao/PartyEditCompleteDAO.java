@@ -16,7 +16,6 @@ public class PartyEditCompleteDAO {
 			String partyPlace,String ageMinimum, String ageMaximum, String partyDetail, String image, String partyId) throws SQLException {
 
 		int count = 0;
-		/* 登録情報変更 */
 		String sql = " update party_info set party_name =?, party_date =?, party_capacity=?,  "
 				+ "male_price=?, female_price=?, party_place=?, age_minimum=?, age_maximum=?, party_detail=?, "
 				+ "image=?, update_date=? where party_id=? ";

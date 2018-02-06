@@ -36,11 +36,6 @@
 			<result name="error">partySearch.jsp</result>
 		</action>
 
-		<action name="MyPageAction" class="cycle.action.MyPageAction"
-			method="execute">
-			<result name="success">myPage.jsp</result>
-		</action>
-
 		<action name="UserCreateConfirmAction" class="cycle.action.UserCreateConfirmAction"
 			method="execute">
 			<result name="success">userCreateConfirm.jsp</result>
@@ -56,29 +51,29 @@
 		    method="execute">
 		    <result name="success">home.jsp</result>
 		</action>
-		<action name="PartyDetailAction" class="cycle.action.PartyDetailAction"
-		    method="execute">
-		    <result name="success">partyDetail.jsp</result>
-		</action>
 
 		 <action name="PartyJoinCompleteAction" class="cycle.action.PartyJoinCompleteAction"
 		    method="execute">
-		    <result type="chain" name="success" >PartySearchAction</result>
+		    <result type="chain" name="success" >PartyJoinHistoryAction</result>
+
 		 </action>
 
 		 <action name="PartyJoinHistoryAction" class="cycle.action.PartyJoinHistoryAction"
              method="execute">
              <result name="success">partyJoinHistory.jsp</result>
+             <result name="error">error.jsp</result>
              </action>
 
             <action name="NicePartyAction" class="cycle.action.NicePartyAction"
              method="execute">
-             <result type="chain" name="success">PartySearchAction</result>
+             <result type="chain" name="success">NicePartyListAction</result>
+             <result name="error">error.jsp</result>
           </action>
 
           <action name="NicePartyListAction" class="cycle.action.NicePartyListAction"
              method="execute">
              <result name="success">nicePartyList.jsp</result>
+             <result name="error">error.jsp</result>
           </action>
 
           <action name="NicePartyDeleteAction" class="cycle.action.NicePartyDeleteAction"
@@ -90,11 +85,13 @@
           <action name="PartyEditAction" class="cycle.action.PartyEditAction"
              method="execute">
              <result name="success">partyEdit.jsp</result>
+             <result name="error">error.jsp</result>
           </action>
 
             <action name="PartyEditCompleteAction" class="cycle.action.PartyEditCompleteAction"
              method="execute">
                <result type="chain" name="success">AllPartyListAction</result>
+               	<result name="error">error.jsp</result>
              <result name="error">adminAllPartyList.jsp</result>
           </action>
 
@@ -107,6 +104,7 @@
           <action name="UserInfoAction" class="cycle.action.UserInfoAction"
              method="execute">
              <result name="success">userInfo.jsp</result>
+             <result name="error">error.jsp</result>
           </action>
 
           <action name="UserInfoEditAction" class="cycle.action.UserInfoEditAction"
@@ -121,7 +119,7 @@
 
            <action name="UserInfoEditCompleteAction" class="cycle.action.UserInfoEditCompleteAction"
              method="execute">
-             <result name="success">userInfo.jsp</result>
+             <result type="chain" name="success">UserInfoAction</result>
              <result name="error">userInfoEdit.jsp</result>
            </action>
 

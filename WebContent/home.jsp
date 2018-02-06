@@ -13,21 +13,36 @@
 <meta name="keywords" content="" />
 <title>Home画面</title>
 
-
 <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/datepicker-ja.js"></script>
+<link type="text/css" href="css/theme/jquery-ui.min.css"
+	rel="stylesheet" />
+<link type="text/css" href="css/theme/jquery-ui.theme.min.css"
+	rel="stylesheet" />
+<link type="text/css" href="css/theme/jquery-ui.structure.min.css"
+	rel="stylesheet" />
 <style type="text/css">
+
+.top{
+margin: 0 auto;
+display: block;
+padding: 0px;
+box-sizing: border-box;
+
+}
 
 #searchBox {
 	position: absolute;
-	top: 100px;
-	left: 0;
+	top: 550px;
+	left: 400px;
 	right: 400px;
-	bottom: 0;
 	margin: 0 auto;
-	width: 550px;
+	width: 500px;
 	height: 600px;
 	background: white;
-	border-radius: 3px;
+	border-radius: 10px;
+	border: solid 3px #6091d3;
 	}
 
 a.allN {
@@ -174,7 +189,7 @@ a.allN {
 	height: 50px;
 }
 
-#searchBotan {
+.search {
 	position: absolute;
 	top: 520px;
 	left: 0;
@@ -182,65 +197,37 @@ a.allN {
 	bottom: 0;
 	width: 98%;
 	margin: 0 auto;
-	height: 50px;
+	height: 40px;
+
+	}
+
+.searchBotan{
+    font-size: 1.4em;
+    font-weight: bold;
+    padding: 10px 30px;
+    background-color: #3575a0;
+    color: #fff;
+    border-style: none;
+    border-radius: 10px;
+
 }
 
-#slideshow {
+.top {
    position: relative;
-   width:  50%; /* ボックスの横幅 */
-   height: 300px; /* ボックスの高さ */
+   width:  1000px;
+   height: 390px;
+   margin: 0 auto;
 }
 
-#slideshow p {
-   position: absolute;
-   top:  0;
-   left: 0;
-   z-index: 8;
-   opacity: 0.0;
-   margin: 0;
-   background-color: white; /* ボックスの背景色(必須) */
-   height: 300px; /* ボックスの高さ */
+.message{
+    font-size: 150%;
+    text-align : center ;
 }
 
-#slideshow p.active {
-   z-index: 10;
-   opacity: 1.0;
-}
 
-#slideshow p.last-active {
-   z-index: 9;
-}
-
-#slideshow p img {
-   width:  100%; /* 画像の横幅 */
-   height: 300px; /* 画像の高さ */
-   display: block;
-   border: 0;
-   margin-bottom: 10px; /* 画像下部の余白 */
-}
 </style>
 
 <script type="text/javascript">
-function slideSwitch() {
-   var $active = $('#slideshow p.active');
-
-   if ( $active.length == 0 ) $active = $('#slideshow p:last');
-
-   var $next =  $active.next().length ? $active.next()
-      : $('#slideshow p:first');
-
-   $active.addClass('last-active');
-
-   $next.css({opacity: 0.0})
-      .addClass('active')
-      .animate({opacity: 1.0}, 1000, function() {
-         $active.removeClass('active last-active');
-      });
-}
-
-$(function() {
-   setInterval( "slideSwitch()", 3000 );
-});
 
 flag = false;
 function allChangeWeek() {
@@ -284,37 +271,15 @@ $(function() {
 <body>
 
 <jsp:include page="subjsp/include.jsp" flush="true" />
+
+<img class="top" src="image/topLogo.png">
+
 	<s:if test="message!=null">
-		<h3><s:property value="message"/></h3>
+		<div class="message"><s:property value="message"/></div>
 	</s:if>
-		<s:property value="userId" />
-
-<div id="slideshow">
-   <p class="active">
-      <a href="PartySearchaAction"><img src="image\10man.png" alt="画像1"></a>
-      キャプション1
-   </p>
-   <p>
-      <a href="PartySearchaAction"><img src="image\hand.jpg" alt="画像2"></a>
-      キャプション2
-   </p>
-   <p>
-      <a href="PartySearchaAction"><img src="bar.jpg" alt="画像3"></a>
-      キャプション3
-   </p>
-   <p>
-      <a href="リンク先"><img src="photo4.jpg" alt="画像4"></a>
-      キャプション4
-   </p>
-   <p>
-      <a href="リンク先"><img src="photo5.jpg" alt="画像5"></a>
-      キャプション5
-   </p>
-
-
 
 	<s:if test="errorMessage!=null">
-		<s:property value="errorMessage" />
+		<div class="message"><s:property value="errorMessage" /></div>
 	</s:if>
 
 	<s:form id="searchBox" name="form" action="PartySearchResultAction">
@@ -351,9 +316,10 @@ $(function() {
 				type="checkbox" name="partyPlace" value="shinagawa" checked>品川</label>
 			<label><input type="checkbox" name="partyPlace" value="ueno"
 				checked>上野</label> <label><input type="checkbox"
-				name="partyPlace" value="roppongi" checked>六本木</label> <label><input
+				name="partyPlace" value="roppongi" checked>六本木</label>
+			<!--  	<label><input
 				name="selectAll" onclick="allChangePlace(this.checked);"
-				type="checkbox" />全解除／全選択</label>
+				type="checkbox" />全解除／全選択</label>   -->
 		</div>
 
 		<div id="ageN">
@@ -440,25 +406,10 @@ $(function() {
 			</select> 円
 		</div>
 
-		<div id="searchBotan">
- 		<button type="submit" name="sort" value="date" style="WIDTH: 200px; HEIGHT:30px; background-color:#grey; color:white;">検索ボタン</button>
-		</div>
+		<div class="search">
+ 		<button type="submit" class="searchBotan" name="sort" value="1" >検索</button>
+ 		</div>
 	</s:form>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
 </body>
 </html>

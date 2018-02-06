@@ -16,35 +16,6 @@
 <title>UserCreate画面</title>
 <style type="text/css">
 /* ========TAG LAYOUT======== */
-#link {
-	position: absolute;
-	font-weight: 100;
-	top: 70px;
-	left: 0;
-	right: 650px;
-	bottom: 0;
-	width: 300px;
-	margin: 0 auto;
-	font-size: 70%;
-}
-
- {
-	text-align: center;
-	margin: 0 auto;
-	/* position: absolute; */
-	top: 200px;
-	left: 0;
-	right: 0px;
-	bottom: 0;
-	width: 500px;
-	height: 400px;
-	border-radius: 3px;
-	border: solid 3px black;
-}
-
-#test {
-	border: solid 3px red;
-}
 
 #error {
 	text-align: center;
@@ -77,16 +48,9 @@ table td { /*table内のtdに対して*/
 <body>
 	<jsp:include page="subjsp/include.jsp" flush="true" />
 
-	<div id="link">
-		<a href="GoHomeAction">ＨＯＭＥ</A> > 会員登録
-	</div>
-
-	<!--
 			<s:if test="errorMassage != ''">
 				<div id="error"><s:property  value="errorMassage" escape="false" /></div>
 			</s:if>
-			-->
-	<div id="test">
 
 		<table>
 
@@ -116,16 +80,10 @@ table td { /*table内のtdに対して*/
 					<td><jsp:include page="subjsp/birthday.jsp" flush="true" /></td>
 				</tr>
 
-				<s:if test="errorMassage != ''">
-					<a id="error"><s:property value="errorMassage" escape="false" /></a>
-				</s:if>
-
-				<s:submit value="登録" />
+				<s:submit value="確認" />
 
 			</s:form>
 		</table>
-	</div>
-
 
 </body>
 </html>
